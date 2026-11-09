@@ -1,0 +1,33 @@
+[
+  {
+    "question": "ONU频繁闪断，收光功率-29 dBm，并出现LOS告警，应该怎么排查？",
+    "ground_truth_keywords": ["光功率", "连接器", "光纤", "分光器"],
+    "expected_document_ids": ["kb-onu-los-001", "kb-onu-flap-002", "kb-power-low-003"]
+  },
+  {
+    "question": "同一个PON口下面十几台ONU同时离线，OLT报PON_LOS",
+    "ground_truth_keywords": ["OLT", "主干光纤", "分光器", "PON"],
+    "expected_document_ids": ["kb-olt-pon-005"]
+  },
+  {
+    "question": "链路CRC持续增长并且误码率很高，要检查哪些指标？",
+    "ground_truth_keywords": ["光功率", "温度", "模块", "误码"],
+    "expected_document_ids": ["kb-ber-crc-006"]
+  },
+  {
+    "question": "LOF告警但没有LOS告警，先排查哪里？",
+    "ground_truth_keywords": ["速率", "封装", "业务映射", "时钟"],
+    "expected_document_ids": ["kb-lof-007"]
+  },
+  {
+    "question": "ONU有光但认证失败，序列号可能不一致",
+    "ground_truth_keywords": ["序列号", "SN", "LOID", "认证"],
+    "expected_document_ids": ["kb-ont-auth-010"]
+  },
+  {
+    "question": "短距离光模块接收光太强并有误码怎么办？",
+    "ground_truth_keywords": ["过载", "衰减器", "光功率", "模块"],
+    "expected_document_ids": ["kb-power-high-004"]
+  }
+]
+

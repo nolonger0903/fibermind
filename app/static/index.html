@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FiberMind 光网络智能故障诊断系统" />
+    <title>FiberMind | 光网络故障诊断</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">FM</span>
+          <div>
+            <strong>FiberMind</strong>
+            <small>光网络诊断台</small>
+          </div>
+        </div>
+
+        <button id="new-session" class="new-session" type="button">＋ 新建诊断</button>
+
+        <nav class="session-nav" aria-label="会话列表">
+          <p class="section-label">当前会话</p>
+          <button class="session-item active" type="button">
+            <span class="status-dot"></span>
+            <span>
+              <strong>现场故障诊断</strong>
+              <small id="session-short">会话初始化中</small>
+            </span>
+          </button>
+        </nav>
+
+        <div class="sidebar-status">
+          <p class="section-label">运行环境</p>
+          <dl>
+            <div><dt>服务</dt><dd id="service-state">检查中</dd></div>
+            <div><dt>检索</dt><dd id="retrieval-mode">-</dd></div>
+            <div><dt>生成</dt><dd id="llm-mode">-</dd></div>
+          </dl>
+          <a href="/docs" target="_blank" rel="noreferrer">打开 API 文档 ↗</a>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>智能故障诊断</h1>
+            <p>意图路由 · 混合检索 · 二阶段精排 · 证据约束生成</p>
+          </div>
+          <div class="connection"><span id="connection-dot"></span><span id="connection-text">连接中</span></div>
+        </header>
+
+        <section id="conversation" class="conversation" aria-live="polite">
+          <div class="welcome" id="welcome">
+            <span class="welcome-kicker">DIAGNOSIS CONSOLE</span>
+            <h2>描述现场现象，开始定位故障</h2>
+            <p>可包含设备、告警码、光功率、影响范围和发生时间。</p>
+            <div class="examples">
+              <button type="button" data-query="ONU频繁闪断，收光功率-29 dBm，昨天还报了LOS，应该怎么排查？">ONU 闪断 + LOS</button>
+              <button type="button" data-query="同一个PON口下面十几台ONU同时离线，OLT端口报PON_LOS">PON 口批量离线</button>
+              <button type="button" data-query="LOS是什么意思？">LOS 告警解释</button>
+            </div>
+          </div>
+        </section>
+
+        <form id="composer" class="composer">
+          <div class="composer-input">
+            <textarea id="query" rows="2" maxlength="1000" placeholder="输入故障现象，例如：ONU 掉线且收光功率持续波动…" required></textarea>
+            <button id="send" type="submit" title="发送诊断请求" aria-label="发送诊断请求">发送</button>
+          </div>
+          <div class="composer-meta">
+            <span>Enter 发送 · Shift + Enter 换行</span>
+            <span id="request-state">等待输入</span>
+          </div>
+        </form>
+      </main>
+
+      <aside class="inspector">
+        <header class="inspector-header">
+          <div>
+            <span class="eyebrow">OBSERVABILITY</span>
+            <h2>诊断链路</h2>
+          </div>
+          <span id="total-latency">-- ms</span>
+        </header>
+
+        <div class="summary-grid">
+          <div><span>意图</span><strong id="intent-name">--</strong></div>
+          <div><span>置信度</span><strong id="intent-confidence">--</strong></div>
+          <div><span>路由</span><strong id="route-name">--</strong></div>
+          <div><span>回答依据</span><strong id="grounded-state">--</strong></div>
+        </div>
+
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="trace" type="button">处理链路</button>
+          <button class="tab" data-tab="sources" type="button">引用来源 <span id="source-count">0</span></button>
+          <button class="tab" data-tab="rewrite" type="button">Query 重构</button>
+        </div>
+
+        <div id="trace-panel" class="panel active" role="tabpanel">
+          <ol id="trace-list" class="trace-list">
+            <li class="empty-state">提交问题后显示各阶段结果与耗时</li>
+          </ol>
+        </div>
+        <div id="sources-panel" class="panel" role="tabpanel">
+          <div id="source-list" class="source-list">
+            <p class="empty-state">暂无引用来源</p>
+          </div>
+        </div>
+        <div id="rewrite-panel" class="panel" role="tabpanel">
+          <div id="rewrite-list" class="rewrite-list">
+            <p class="empty-state">RAG 路径会在此显示改写后的检索 Query</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
+

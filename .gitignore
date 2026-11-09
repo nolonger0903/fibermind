@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.env
+*.egg-info/
+build/
+dist/
+.DS_Store
+Thumbs.db
+data/generated/
+models/
+reports/*.json
+reports/*.csv
+

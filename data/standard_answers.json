@@ -1,0 +1,27 @@
+[
+  {
+    "id": "std-los",
+    "patterns": ["LOS是什么意思", "LOS告警是什么", "什么是LOS", "los告警含义"],
+    "intent": "alarm_explanation",
+    "answer": "LOS（Loss of Signal）表示设备未检测到有效光信号。常见原因包括光纤松脱或中断、连接器污染、光功率低于接收灵敏度，以及对端光模块未发光。建议先查看接收光功率和影响范围，再从连接器、跳纤、分光器及上联设备逐段排查。"
+  },
+  {
+    "id": "std-lof",
+    "patterns": ["LOF是什么意思", "LOF告警是什么", "什么是LOF"],
+    "intent": "alarm_explanation",
+    "answer": "LOF（Loss of Frame）表示接收端无法恢复正确的帧结构。通常需要结合 LOS、AIS 和误码告警判断：若同时有 LOS，先处理物理光路；若只有 LOF，则重点核对两端速率、封装、业务映射和时钟配置。"
+  },
+  {
+    "id": "std-power",
+    "patterns": ["ONU正常光功率是多少", "ONU光功率正常范围", "收光功率多少正常"],
+    "intent": "knowledge_qa",
+    "answer": "常见 GPON ONU 接收光功率大致在 -8 dBm 至 -27 dBm，但准确范围取决于设备等级和厂商规格。判断时应以对应光模块数据手册和网管阈值为准，同时关注光功率是否持续波动。"
+  },
+  {
+    "id": "std-clean",
+    "patterns": ["怎么清洁光纤接头", "光纤端面怎么清洁", "尾纤怎么清洁"],
+    "intent": "operation_guide",
+    "answer": "先确认业务影响，严禁直视光纤端面。使用端面检测仪检查后，用专用无尘清洁工具单向清洁，再次检查端面并复测光功率。不要使用普通纸巾，也不要让清洁后的接头暴露在空气中。"
+  }
+]
+
